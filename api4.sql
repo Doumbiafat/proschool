@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 07 mars 2024 à 12:10
+-- Généré le : ven. 08 mars 2024 à 15:02
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -90,14 +90,6 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `personal_access_tokens`
---
-
-INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'auth_token', '2d1653b21999e0f310fb4cbbb2933bdc990db74d7814015d40bc0fea27d4e0d5', '[\"*\"]', NULL, NULL, '2024-03-07 10:06:53', '2024-03-07 10:06:53'),
-(2, 'App\\Models\\User', 1, 'auth_token', '18019225a9848c064272f49af604841061f7ce8dfff29dd7a62d1727d1d0e9f4', '[\"*\"]', NULL, NULL, '2024-03-07 10:47:57', '2024-03-07 10:47:57');
-
 -- --------------------------------------------------------
 
 --
@@ -122,8 +114,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `prenom`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Ouattara', 'emmanuel', 'oange866@gmail.com', NULL, '$2y$12$HlTssGEeodYGmBETZ58TTO590xJJyLjD4dBoEvoodybCqF4jJry6K', 'admin', NULL, '2024-03-07 09:39:37', '2024-03-07 09:39:37'),
-(2, 'koffi', 'ange', 'koffi@gmail.com', NULL, '$2y$12$/zVsQkFUpELySKU513AMIuJ.cWdTDnImK1wfjW6Gae6NfZzSQbX86', 'etudiant', NULL, '2024-03-07 09:42:33', '2024-03-07 09:42:33');
+(1, 'koffi', 'ange', 'koffi@gmail.com', NULL, '$2y$12$fO46oaHyqm74BFOF3ldhiu6jvvqD8aOAoxLEwc5wnAHhh9ANjvM4.', 'etudiant', NULL, '2024-03-07 16:03:55', '2024-03-07 16:03:55'),
+(2, 'Ouattara', 'emmanuel', 'oange866@gmail.com', NULL, '$2y$12$zeaB04Pyzb.RUH.5p62q3ehcFWB0IrhzuEksyuwfT4C/CuBRWI6r2', 'admin', NULL, '2024-03-07 16:21:42', '2024-03-07 16:21:42'),
+(3, 'yao', 'ange', 'yao@gmail.com', NULL, '$2y$12$poP5sT0.m.yf9HK2mXJ4PuzsO9K0Al97NuepdpMqYkC1w5szli46y', 'enseignant', NULL, '2024-03-08 13:12:38', '2024-03-08 13:12:38');
 
 --
 -- Index pour les tables déchargées
@@ -183,13 +176,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT pour la table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

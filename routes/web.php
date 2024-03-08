@@ -24,9 +24,18 @@ Route::get('/ins', function () {
 Route::view('/etudiant', 'etudiant')->name('etudiant');
 Route::view('/enseignant', 'enseignant')->name('enseignant');
 Route::view('/admin', 'admin')->name('admin');
+Route::view('/conn', 'conn')->name('conn');
+
+
+
+
+Route::middleware('auth')->get('/profile', [AuthController::class, 'profile'])->name('profile');
+
+
+
 
 /*route direction la page d'inscription  t connection*/
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-route::get('/logout',[AuthController::class,'logout']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 

@@ -9,6 +9,7 @@
 </head>
 <body>
 <a href="/logout">se deconnecter</a>
+<a href="/profile">profile</a>
     <section class="ins" id="ins">
         <div class="box">
           <span class="borderLine"></span>
