@@ -47,11 +47,20 @@
               </div>
 
               <select select name="role" id="role">
-                  <option value="etudiant">Étudiant</option>
-                  <option value="enseignant">Enseignant</option>
-                  <option value="professeur">Professeur</option>
+                <option value="etudiant">Étudiant</option>
+                <option value="enseignant">Enseignant</option>
+                <option value="admin">Admin</option>
+            </select>
 
-              </select>
+            <!-- Champ de saisie pour la matière, visible uniquement si le rôle sélectionné est "enseignant" -->
+            <select name="matiere" id="matiere">
+                <option value="math">Mathématiques</option>
+                <option value="anglais">Anglais</option>
+                <option value="physique">Physique</option>
+            </select>
+            <div id="matriculeField" style="display: none;">
+                <input type="text" name="matricule" id="matricule" placeholder="Matricule" required>
+            </div>
 
               <button type="submit">inscrire</button>
 
@@ -60,7 +69,20 @@
 
         </div>
       </section>
+      <script>
+        document.getElementById('role').addEventListener('change', function() {
+            var role = this.value;
+            var matriculeField = document.getElementById('matriculeField');
 
+            if (role === 'etudiant') {
+                matriculeField.style.display = 'block';
+                document.getElementById('matricule').required = true;
+            } else {
+                matriculeField.style.display = 'none';
+                document.getElementById('matricule').required = false;
+            }
+        });
+    </script>
 
 </body>
 </html>

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Enseignant;
+use App\Models\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -12,10 +15,21 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'prenom'=> 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:etudiant,enseignant,admin'
+            'role' => 'required|in:etudiant,enseignant,admin',
+            'matiere' => [
+                'required_if:role,enseignant',
+                'string',
+                'max:255',
+                'in:math,anglais,physique' // Les trois options autorisées
+            ],
+            'matricule' => [
+                'nullable', // Rend le champ matricule facultatif
+                'string',
+                'max:255'
+            ]
         ]);
 
         $user = User::create([
@@ -25,6 +39,25 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'role' => $request->role
         ]);
+
+        if ($request->role === 'enseignant') {
+            // Créer un enregistrement dans la table enseignant
+            Enseignant::create([
+                'id_enseignant' => $user->id,
+                'matiere' => $request->matiere
+            ]);
+        }elseif($request->role === 'etudiant') {
+            // Créer un enregistrement dans la table etudiant
+            Etudiant::create([
+                'id_etudiant' => $user->id,
+                'matricule' => $request->matricule
+            ]);
+        }elseif($request->role === 'admin') {
+            // Créer un enregistrement dans la table admins
+            Admin::create([
+                'id_admin' => $user->id
+            ]);
+        }
 
         return response()->json(['message' => 'Utilisateur enregistré avec succès'], 201);
     }
