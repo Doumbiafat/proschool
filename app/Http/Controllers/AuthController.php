@@ -139,6 +139,14 @@ public function profile()
         return redirect()->route('login');
     }
 }
+
+public function listEtudiants()
+{
+    //
+    $etudiants = User::where ('role','etudiant')->get();
+
+    return view('list', compact('etudiants'));
+}
 }
 
 

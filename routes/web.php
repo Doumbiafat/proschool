@@ -30,7 +30,7 @@ Route::view('/conn', 'conn')->name('conn');
 
 
 Route::middleware('auth')->get('/profile', [AuthController::class, 'profile'])->name('profile');
-
+Route::middleware('auth')->get('/etudiants', [AuthController::class, 'listEtudiants'])->name('listEtudiants');
 
 
 
