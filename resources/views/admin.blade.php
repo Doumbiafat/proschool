@@ -10,6 +10,7 @@
 <body>
 <a href="/logout">se deconnecter</a>
 <a href="/profile">profile</a>
+<a href="/etudiants">list</a>
     <section class="ins" id="ins">
         <div class="box">
           <span class="borderLine"></span>
@@ -69,6 +70,7 @@
 
         </div>
       </section>
+
       <script>
         document.getElementById('role').addEventListener('change', function() {
             var role = this.value;
