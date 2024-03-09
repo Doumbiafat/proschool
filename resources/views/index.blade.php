@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
             
     <!-- <<Attched Stylesheets>> -->
-    <link rel="stylesheet" href="css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="css/media.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{asset('css/theme.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('css/media.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" type="text/css" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,600italic,400italic,800,700' rel='stylesheet' type='text/css'>    
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 
@@ -50,7 +50,7 @@
                                 <span class="menu-item-bg"></span>
                             </li>
                             <li>
-                                <a href="#contact">SE Connecter</a>
+                                <a href="/conn">SE Connecter</a>
                                 <span class="menu-item-bg"></span>
                             </li>
                             <li>
@@ -85,7 +85,7 @@
                     	<ul id="slider">	
                     		<li>
                                 <div class="Slider">
-                                    <figure><img src="img/slider-img1.jpg" alt="image"></figure>
+                                    <figure><img src="{{asset('img/slider-img1.jpg')}}" alt="image"></figure>
                                     <div class="text">
                                         <div class="Icon">
                                             <ul>
@@ -101,7 +101,7 @@
 							</li>
                     		<li>
                                 <div class="Slider">
-                                    <figure><img src="img/slider-img2.jpg" alt="image"></figure>
+                                    <figure><img src="{{asset('img/slider-img2.jpg')}}" alt="image"></figure>
                                     <div class="text">
                                         <div class="Icon">
                                             <ul>
@@ -116,7 +116,7 @@
                                 </div>
 							</li>
 						</ul>                                                            
-            	        <figure><img src="img/Shadow-img.png" alt="image" class="Shadow"></figure>                                                        
+            	        <figure><img src="{{asset('img/Shadow-img.png')}}" alt="image" class="Shadow"></figure>                                                        
                     </div>
 
 	            </div>
@@ -151,10 +151,10 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                         <div class="tabcontent" id="cont-1-1">
                             <div class="TabImage">
                                 <div class="img1">
-                                    <figure><img src="img/about-img2.jpg" alt="image"></figure>	
+                                    <figure><img src="{{asset('img/about-img2.jpg')}}" alt="image"></figure>
                                 </div>
                                 <div class="img2">
-                                    <figure><img src="img/about-img1.png" alt="image"></figure>
+                                    <figure><img src="{{asset('img/about-img1.png')}}" alt="image"></figure>
                                 </div>
                             </div>
                             <div class="Description">
@@ -166,10 +166,10 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                         <div class="tabcontent hide" id="cont-2-1">
                             <div class="TabImage">
                                 <div class="img1">
-                                    <figure><img src="img/about-img1.png" alt="image"></figure>	
+                                    <figure><img src="{{asset('img/about-img1.png')}}" alt="image"></figure>	
                                 </div>
                                 <div class="img2">
-                                    <figure><img src="img/about-img2.jpg" alt="image"></figure>
+                                    <figure><img src="{{asset('img/about-img2.jpg')}}" alt="image"></figure>
                                 </div>
                             </div>
                             <div class="Description">
@@ -181,10 +181,10 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                         <div class="tabcontent hide" id="cont-3-1">
                             <div class="TabImage">
                                 <div class="img1">
-                                    <figure><img src="img/about-img2.jpg" alt="image"></figure>	
+                                    <figure><img src="{{asset('img/about-img2.jpg')}}" alt="image"></figure>	
                                 </div>
                                 <div class="img2">
-                                    <figure><img src="img/about-img1.png" alt="image"></figure>
+                                    <figure><img src="{{asset('img/about-img1.png')}}" alt="image"></figure>
                                 </div>
                             </div>
                             <div class="Description">
@@ -193,8 +193,8 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                                 <p>Nous aspirons à être reconnus pour notre excellence en matière de service, notre engagement envers l'innovation et notre contribution à l'amélioration de l'éducation à l'échelle mondiale.</p>
                              </div>
                         </div>
-	                    <div class="clear"></div>	
-                    </div>                    
+	                    <div class="clear"></div>
+                    </div>
                     
                 </div>
             </div>
@@ -382,10 +382,10 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
 </div>
 
 <!-- << Javascripts>> -->
-<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="js/jquery.sudoSlider.min.js"></script>
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" src="{{asset('js/jquery-1.11.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.sudoSlider.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/global.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/modernizr.js')}}"></script>
 
 </body>
 </html>
