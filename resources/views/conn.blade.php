@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+ <a href="/index">acceuil</a>
     <section class="ins" id="ins">
         <div class="box">
           <span class="borderLine"></span>

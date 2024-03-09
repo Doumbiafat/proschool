@@ -15,7 +15,7 @@ use App\Http\Controllers\AuthController;
 */
 /*route de base debut de l'application direction ins.blade.php*/
 Route::get('/', function () {
-    return view('conn');
+    return view('index');
 });
 
 Route::get('/ins', function () {
@@ -25,6 +25,7 @@ Route::view('/etudiant', 'etudiant')->name('etudiant');
 Route::view('/enseignant', 'enseignant')->name('enseignant');
 Route::view('/admin', 'admin')->name('admin');
 Route::view('/conn', 'conn')->name('conn');
+Route::view('/index', 'index')->name('index');
 
 
 
