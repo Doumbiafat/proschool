@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 08 mars 2024 à 18:54
+-- Généré le : dim. 10 mars 2024 à 19:01
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -76,6 +76,14 @@ CREATE TABLE `etudiants` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `etudiants`
+--
+
+INSERT INTO `etudiants` (`id`, `id_etudiant`, `matricule`, `created_at`, `updated_at`) VALUES
+(3, 14, '14035202J', '2024-03-09 19:49:51', '2024-03-09 19:49:51'),
+(4, 15, '14035203J', '2024-03-10 17:50:19', '2024-03-10 17:50:19');
+
 -- --------------------------------------------------------
 
 --
@@ -115,7 +123,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2024_03_06_144450_create_user_table', 2),
 (6, '2024_03_08_161826_create_enseignants_table', 3),
 (7, '2024_03_08_170931_create_etudiants_table', 4),
-(8, '2024_03_08_173910_create_admins_table', 5);
+(8, '2024_03_08_173910_create_admins_table', 5),
+(9, '2024_03_09_203548_create_school_years_table', 6);
 
 -- --------------------------------------------------------
 
@@ -153,11 +162,7 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(4, 'App\\Models\\User', 2, 'auth_token', 'e615670cbd7331e3c5e6fffee32e95dae693977b95ae8483561599f89c516d37', '[\"*\"]', NULL, NULL, '2024-03-08 16:35:18', '2024-03-08 16:35:18'),
-(5, 'App\\Models\\User', 2, 'auth_token', 'a0c1cef49940d7fd3654a389aa0843bc8e24e6e7d80d74267a2073004cbf407c', '[\"*\"]', NULL, NULL, '2024-03-08 17:11:55', '2024-03-08 17:11:55'),
-(6, 'App\\Models\\User', 2, 'auth_token', 'bcccecd6ce74b4a8f7431b334b5c532d653f513a8b7192bcdc27c58089b996c4', '[\"*\"]', NULL, NULL, '2024-03-08 17:26:25', '2024-03-08 17:26:25'),
-(7, 'App\\Models\\User', 2, 'auth_token', '6e672576fd619bf1863ec7ccb64922b4a56c5b2e56afea6416aeb891d5ca3aa2', '[\"*\"]', NULL, NULL, '2024-03-08 17:35:24', '2024-03-08 17:35:24'),
-(8, 'App\\Models\\User', 2, 'auth_token', 'ef2f214810103f0083c6262cc0a16064b00781038e02c3c2652e700f94581b28', '[\"*\"]', NULL, NULL, '2024-03-08 17:52:22', '2024-03-08 17:52:22');
+(38, 'App\\Models\\User', 15, 'auth_token', 'cde01cc3677cfa4afab87fd943d88c854c93bb904b28e880b1d279e41e7d18a6', '[\"*\"]', NULL, NULL, '2024-03-10 17:52:08', '2024-03-10 17:52:08');
 
 -- --------------------------------------------------------
 
@@ -183,10 +188,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `prenom`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'koffi', 'ange', 'koffi@gmail.com', NULL, '$2y$12$fO46oaHyqm74BFOF3ldhiu6jvvqD8aOAoxLEwc5wnAHhh9ANjvM4.', 'etudiant', NULL, '2024-03-07 16:03:55', '2024-03-07 16:03:55'),
 (2, 'Ouattara', 'emmanuel', 'oange866@gmail.com', NULL, '$2y$12$zeaB04Pyzb.RUH.5p62q3ehcFWB0IrhzuEksyuwfT4C/CuBRWI6r2', 'admin', NULL, '2024-03-07 16:21:42', '2024-03-07 16:21:42'),
 (4, 'YAO', 'ANGE', 'yao@gmail.com', NULL, '$2y$12$MxERkIAhxHBe88zuelhm4.FfnjiOEXvegO7LzJAFiQ9JNTw55sELa', 'enseignant', NULL, '2024-03-08 16:36:01', '2024-03-08 16:36:01'),
-(13, 'manu', 'ange', 'manu@gmail.com', NULL, '$2y$12$jrKA9wF/ABFlmkdw7jc47urtRqvjkTEvOcEjC6.6RT4FUB7XgKujS', 'admin', NULL, '2024-03-08 17:53:09', '2024-03-08 17:53:09');
+(13, 'manu', 'ange', 'manu@gmail.com', NULL, '$2y$12$jrKA9wF/ABFlmkdw7jc47urtRqvjkTEvOcEjC6.6RT4FUB7XgKujS', 'admin', NULL, '2024-03-08 17:53:09', '2024-03-08 17:53:09'),
+(14, 'koffi', 'ange', 'koffi1@gmail.com', NULL, '$2y$12$FfZhmitpEIwoOsSeoZJnye221fCyHU0abV90Ef4a.LksuCi2.7Be6', 'etudiant', NULL, '2024-03-09 19:49:51', '2024-03-09 19:49:51'),
+(15, 'doumbia', 'fatima', 'fatima@gmail.com', NULL, '$2y$12$vq6oS/68EL9y0IKLQUAWkulSq7Q49FU2pf.CfVDyzrpCOg9MKJWTu', 'etudiant', NULL, '2024-03-10 17:50:19', '2024-03-10 17:50:19');
 
 --
 -- Index pour les tables déchargées
@@ -267,7 +273,7 @@ ALTER TABLE `enseignants`
 -- AUTO_INCREMENT pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `failed_jobs`
@@ -279,19 +285,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT pour la table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Contraintes pour les tables déchargées
