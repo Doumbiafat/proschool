@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profil Etudiant</title>
+<title>Profile Etudiant</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -40,45 +40,37 @@
         border-radius: 5px;
         transition: background-color 0.3s;
     }
+    .yo{
+        display: flex;
+
+    }
+    .yo a{
+     margin-right: 80px;
+     margin-left: 80px;
+       justify-content: center;
+
+    }
     .btn:hover {
         background-color: #138496;
     }
 </style>
 </head>
+
+
 <body>
-<a href="/logout">se deconnecter</a>
-<a href="/profile">profile</a>
-<div class="container">
-    <h1>Profil Etudiant</h1>
-    <div class="info">
-        <label for="nom">Nom:</label>
-        <span id="nom">Doe</span>
+    <div class="container">
+        <h1>Profile de {{ $user->name }}</h1>
+        <p><strong>Nom:</strong> {{ $user->name }}</p>
+        <p><strong>Prénom:</strong> {{ $user->prenom }}</p>
+        <p><strong>Email:</strong> {{ $user->email }}</p>
+        <p><strong>Rôle:</strong> {{ $user->role }}</p>
+        <p><strong>Date d'inscription:</strong> {{ $user->created_at }}</p>
+        <div class="yo">
+
+            <a href="{{ route('logout') }}" class="btn">Déconnexion</a>
+            <a href="#" class="btn">Modifier</a>
+        </div>
     </div>
-    <div class="info">
-        <label for="prenom">Prénom:</label>
-        <span id="prenom">John</span>
-    </div>
-    <div class="info">
-        <label for="filiere">Filière:</label>
-        <span id="filiere">Informatique</span>
-    </div>
-    <div class="info">
-        <label for="niveau">Niveau:</label>
-        <span id="niveau">Licence 3</span>
-    </div>
-    <div class="info">
-        <label for="annee">Année Universitaire:</label>
-        <span id="annee">2023/2024</span>
-    </div>
-    <div class="info">
-        <label for="email">Email:</label>
-        <span id="email">john.doe@example.com</span>
-    </div>
-    <div class="info">
-        <label for="date_naissance">Date de Naissance:</label>
-        <span id="date_naissance">01/01/2000</span>
-    </div>
-    <a href="#" class="btn">Modifier</a>
-</div>
+</body>
 </body>
 </html>

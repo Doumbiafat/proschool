@@ -143,10 +143,13 @@ public function profile()
 public function listEtudiants()
 {
     //
-    $etudiants = User::where ('role','etudiant')->get();
+    $etudiants = User::where ('role','etudiant')->with('etudiant')->get();
 
-    return view('list', compact('etudiants'));
+    $enseignants = User::where('role', 'enseignant')->with('enseignant')->get();
+
+    return view('list', compact('etudiants','enseignants'));
 }
 }
+
 
 

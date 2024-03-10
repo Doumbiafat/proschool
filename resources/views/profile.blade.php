@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5; /* Fond clair */
-            color: #333; /* Texte plus sombre */
-            margin: 0;
-            padding: 0;
-            text-align: left; /* Alignement à gauche */
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
 
         .container {
             max-width: 600px;

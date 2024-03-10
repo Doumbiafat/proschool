@@ -86,7 +86,7 @@ table.table th i {
     font-size: 13px;
     margin: 0 5px;
     cursor: pointer;
-}   
+}
 table.table td:last-child i {
     opacity: 0.9;
     font-size: 22px;
@@ -152,11 +152,11 @@ table.table .avatar {
 }
 .pagination li a:hover {
     color: #666;
-}   
+}
 .pagination li.active a, .pagination li.active a.page-link {
     background: #03A9F4;
 }
-.pagination li.active a:hover {        
+.pagination li.active a:hover {
     background: #0397d6;
 }
 .pagination li.disabled i {
@@ -188,37 +188,37 @@ $(document).ready(function(){
                         <h2>User <b>Management</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="/login" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
-                        <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>                      
+                        <a href="/admin" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Ajouter un utilisateur</span></a>
+                        <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
                     </div>
                 </div>
             </div>
+            <h1>Liste des étudiants</h1>
             <table class="table table-striped table-hover">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Email</th>
-                        <th>Rôle</th>
-                        <th>Créé</th>
-                        <th>Action</th>
+                    <tr style="background-color:  orange;">
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">id</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Nom</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Prénom</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Email</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Rôle</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Créé</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Matricule</th>
                     </tr>
                 </thead>
                 <tbody>
-            @forelse ($etudiants as $item)
-            <tr class="border-b-2 border-gray-100">
-                <th class="test-sm font-medium text-gray-900 px-6 py-6">{{$item->id}}</th>
-                <th class="test-sm font-medium text-gray-900 px-6 py-6">{{$item->name}}</th>
-                <th class="test-sm font-medium text-gray-900 px-6 py-6">{{$item->prenom}}</th>
-                <th class="test-sm font-medium text-gray-900 px-6 py-6">{{$item->email}}</th>
-                <th class="test-sm font-medium text-gray-900 px-6 py-6">{{$item->role}}</th>
-                <th class="test-sm font-medium text-gray-900 px-6 py-6">{{$item->created_at}}</th>
+                    @forelse ($etudiants as $item)
+                    <tr style="background-color:  #f2f2f2;">
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->id}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->name}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->prenom}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->email}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->role}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->created_at}}
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;"> {{ $item->etudiant->matricule}}</td>
 
-
-                </th>
-            </tr>
-            @empty
+                    </tr>
+                    @empty
                 <tr class="w-full">
                     <td class=" flex-1 w-full items-center justify-center" colspan="4">
                         <div>
@@ -238,6 +238,59 @@ $(document).ready(function(){
 
         </tbody>
             </table>
+
+            <h1>Liste des enseignants</h1>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr style="background-color:  orange;">
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">id</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Nom</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Prénom</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Email</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Rôle</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Créé</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Matiere</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($enseignants as $item)
+                    <tr style="background-color:  #f2f2f2;">
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->id}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->name}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->prenom}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->email}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->role}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->created_at}}</td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">
+                            @if($item->role === 'enseignant' && $item->enseignant)
+                                {{ $item->enseignant->matiere }}
+                            @else
+                                N/A
+                            @endif
+                        </td>
+
+                    </tr>
+                    @empty
+                <tr class="w-full">
+                    <td class=" flex-1 w-full items-center justify-center" colspan="4">
+                        <div>
+                            <p class="flex justify-center content-center p-4"> <img
+                                    src="{{ asset('storage/empty.svg') }}" alt=""
+                                    class="w-20 h-20">
+                            <div>Aucun élément trouvé!</div>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+
+            @endforelse
+
+
+
+
+        </tbody>
+            </table>
+
             <div class="clearfix">
                 <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
                 <ul class="pagination">
@@ -252,6 +305,6 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
-</div>   
+</div>
 </body>
 </html>
