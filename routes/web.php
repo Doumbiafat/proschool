@@ -25,6 +25,7 @@ Route::view('/etudiant', 'etudiant')->name('etudiant');
 Route::view('/enseignant', 'enseignant')->name('enseignant');
 Route::view('/admin', 'admin')->name('admin');
 Route::view('/conn', 'conn')->name('conn');
+Route::view('/classe', 'classe')->name('classe');
 Route::view('/index', 'index')->name('index');
 
 
@@ -39,4 +40,6 @@ Route::middleware('auth')->get('/etudiants', [AuthController::class, 'listEtudia
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/create-classe', [AuthController::class, 'createClasse'])->name('createClasse');
+
 

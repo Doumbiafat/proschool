@@ -11,6 +11,7 @@
 <a href="/logout">se deconnecter</a>
 <a href="/profile">profile</a>
 <a href="/etudiants">list</a>
+<a href="/classe">classe</a>
     <section class="ins" id="ins">
         <div class="box">
           <span class="borderLine"></span>
@@ -59,6 +60,12 @@
                 <option value="anglais">Anglais</option>
                 <option value="physique">Physique</option>
             </select>
+            <select name="classe_id" id="classe_id">
+                @foreach($classes as $classe)
+                    <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
+                @endforeach
+            </select>
+
             <div id="matriculeField" style="display: none;">
                 <input type="text" name="matricule" id="matricule" placeholder="Matricule" required>
             </div>

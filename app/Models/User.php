@@ -47,10 +47,15 @@ class User extends Authenticatable
 
     public function enseignant()
     {
-        return $this->hasOne(Enseignant::class, 'id_enseignant');
+        return $this->hasOne(Enseignant::class, 'id_enseignant')->with('classe');
+
     }
     public function etudiant()
     {
-        return $this->hasOne(Etudiant::class, 'id_etudiant');
+        return $this->hasOne(Etudiant::class, 'id_etudiant')->with('classe');
     }
+    public function classe()
+{
+    return $this->belongsTo(Classe::class);
+}
 }

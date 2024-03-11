@@ -9,10 +9,14 @@ class Etudiant extends Model
 {
 
     use HasFactory,HasFactory, Notifiable;
-    protected $fillable = ['id_etudiant', 'matricule'];
+    protected $fillable = ['id_etudiant','classe_id', 'matricule'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'id_etudiant');
+    }
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class, 'classe_id');
     }
 }

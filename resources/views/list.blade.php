@@ -197,13 +197,13 @@ $(document).ready(function(){
             <table class="table table-striped table-hover">
                 <thead>
                     <tr style="background-color:  orange;">
-                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">id</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;  text-align: center;">id</th>
                         <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Nom</th>
                         <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Prénom</th>
-                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Email</th>
-                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Rôle</th>
-                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Créé</th>
-                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Matricule</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Email</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd; text-align: center">Rôle</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Créé</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Matricule</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -215,7 +215,14 @@ $(document).ready(function(){
                         <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->email}}</td>
                         <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->role}}</td>
                         <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->created_at}}
-                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;"> {{ $item->etudiant->matricule}}</td>
+                            <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">
+                                @if($item->role === 'etudiant' && $item->etudiant)
+                                    {{ $item->etudiant->matricule ?? 'N/A' }}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
+
 
                     </tr>
                     @empty
@@ -243,13 +250,13 @@ $(document).ready(function(){
             <table class="table table-striped table-hover">
                 <thead>
                     <tr style="background-color:  orange;">
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">id</th>
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Nom</th>
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Prénom</th>
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Email</th>
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Rôle</th>
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Créé</th>
-                        <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Matiere</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">id</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">Nom</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">Prénom</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">Email</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">Rôle</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">Créé</th>
+                        <th style="padding: 10px; border: 2px solid #dddddd;">Matiere</th>
                     </tr>
                 </thead>
                 <tbody>

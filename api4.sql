@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 10 mars 2024 à 19:01
+-- Généré le : lun. 11 mars 2024 à 02:40
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -44,12 +44,34 @@ INSERT INTO `admins` (`id`, `id_admin`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `classes`
+--
+
+CREATE TABLE `classes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `classes`
+--
+
+INSERT INTO `classes` (`id`, `libelle`, `created_at`, `updated_at`) VALUES
+(1, 'IGL L1', '2024-03-10 19:44:46', '2024-03-10 19:44:46'),
+(2, 'IGL L2', '2024-03-10 19:47:24', '2024-03-10 19:47:24');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `enseignants`
 --
 
 CREATE TABLE `enseignants` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_enseignant` bigint(20) UNSIGNED NOT NULL,
+  `classe_id` bigint(20) UNSIGNED NOT NULL,
   `matiere` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -59,8 +81,8 @@ CREATE TABLE `enseignants` (
 -- Déchargement des données de la table `enseignants`
 --
 
-INSERT INTO `enseignants` (`id`, `id_enseignant`, `matiere`, `created_at`, `updated_at`) VALUES
-(1, 4, 'math', '2024-03-08 16:36:01', '2024-03-08 16:36:01');
+INSERT INTO `enseignants` (`id`, `id_enseignant`, `classe_id`, `matiere`, `created_at`, `updated_at`) VALUES
+(1, 16, 2, 'math', '2024-03-10 21:25:20', '2024-03-10 21:25:20');
 
 -- --------------------------------------------------------
 
@@ -71,6 +93,7 @@ INSERT INTO `enseignants` (`id`, `id_enseignant`, `matiere`, `created_at`, `upda
 CREATE TABLE `etudiants` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_etudiant` bigint(20) UNSIGNED NOT NULL,
+  `classe_id` bigint(20) UNSIGNED NOT NULL,
   `matricule` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -80,9 +103,8 @@ CREATE TABLE `etudiants` (
 -- Déchargement des données de la table `etudiants`
 --
 
-INSERT INTO `etudiants` (`id`, `id_etudiant`, `matricule`, `created_at`, `updated_at`) VALUES
-(3, 14, '14035202J', '2024-03-09 19:49:51', '2024-03-09 19:49:51'),
-(4, 15, '14035203J', '2024-03-10 17:50:19', '2024-03-10 17:50:19');
+INSERT INTO `etudiants` (`id`, `id_etudiant`, `classe_id`, `matricule`, `created_at`, `updated_at`) VALUES
+(1, 17, 1, '14035204J', '2024-03-10 21:28:05', '2024-03-10 21:28:05');
 
 -- --------------------------------------------------------
 
@@ -124,7 +146,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2024_03_08_161826_create_enseignants_table', 3),
 (7, '2024_03_08_170931_create_etudiants_table', 4),
 (8, '2024_03_08_173910_create_admins_table', 5),
-(9, '2024_03_09_203548_create_school_years_table', 6);
+(9, '2024_03_09_203548_create_school_years_table', 6),
+(10, '2024_03_10_192626_create_classes_table', 7),
+(11, '2024_03_10_211719_create_enseignants_table', 8),
+(12, '2024_03_10_211955_create_etudiants_table', 9);
 
 -- --------------------------------------------------------
 
@@ -162,7 +187,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(38, 'App\\Models\\User', 15, 'auth_token', 'cde01cc3677cfa4afab87fd943d88c854c93bb904b28e880b1d279e41e7d18a6', '[\"*\"]', NULL, NULL, '2024-03-10 17:52:08', '2024-03-10 17:52:08');
+(38, 'App\\Models\\User', 15, 'auth_token', 'cde01cc3677cfa4afab87fd943d88c854c93bb904b28e880b1d279e41e7d18a6', '[\"*\"]', NULL, NULL, '2024-03-10 17:52:08', '2024-03-10 17:52:08'),
+(83, 'App\\Models\\User', 16, 'auth_token', '15650c743b5d534dd326484d5ce0ab18657e855a55090773067b0e06f749a8d6', '[\"*\"]', NULL, NULL, '2024-03-11 01:39:54', '2024-03-11 01:39:54');
 
 -- --------------------------------------------------------
 
@@ -189,10 +215,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `prenom`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 (2, 'Ouattara', 'emmanuel', 'oange866@gmail.com', NULL, '$2y$12$zeaB04Pyzb.RUH.5p62q3ehcFWB0IrhzuEksyuwfT4C/CuBRWI6r2', 'admin', NULL, '2024-03-07 16:21:42', '2024-03-07 16:21:42'),
-(4, 'YAO', 'ANGE', 'yao@gmail.com', NULL, '$2y$12$MxERkIAhxHBe88zuelhm4.FfnjiOEXvegO7LzJAFiQ9JNTw55sELa', 'enseignant', NULL, '2024-03-08 16:36:01', '2024-03-08 16:36:01'),
 (13, 'manu', 'ange', 'manu@gmail.com', NULL, '$2y$12$jrKA9wF/ABFlmkdw7jc47urtRqvjkTEvOcEjC6.6RT4FUB7XgKujS', 'admin', NULL, '2024-03-08 17:53:09', '2024-03-08 17:53:09'),
-(14, 'koffi', 'ange', 'koffi1@gmail.com', NULL, '$2y$12$FfZhmitpEIwoOsSeoZJnye221fCyHU0abV90Ef4a.LksuCi2.7Be6', 'etudiant', NULL, '2024-03-09 19:49:51', '2024-03-09 19:49:51'),
-(15, 'doumbia', 'fatima', 'fatima@gmail.com', NULL, '$2y$12$vq6oS/68EL9y0IKLQUAWkulSq7Q49FU2pf.CfVDyzrpCOg9MKJWTu', 'etudiant', NULL, '2024-03-10 17:50:19', '2024-03-10 17:50:19');
+(16, 'yaoo', 'angeee', 'yaoo@gmail.com', NULL, '$2y$12$SkKdQVlPA0o.WwQZYP6EreQqMIR7D/uQLye.HfLnie2WsDIze6a8G', 'enseignant', NULL, '2024-03-10 21:25:19', '2024-03-10 21:25:19'),
+(17, 'AA', 'AAA', 'aa@gmail.com', NULL, '$2y$12$6SPrDoTf7v/wu9.97CL.BeVvHpu4QHWDHmFD2aOk6F1K/KFrjHkJS', 'etudiant', NULL, '2024-03-10 21:28:05', '2024-03-10 21:28:05');
 
 --
 -- Index pour les tables déchargées
@@ -206,18 +231,26 @@ ALTER TABLE `admins`
   ADD KEY `admins_id_admin_foreign` (`id_admin`);
 
 --
+-- Index pour la table `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `enseignants`
 --
 ALTER TABLE `enseignants`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `enseignants_id_enseignant_foreign` (`id_enseignant`);
+  ADD KEY `enseignants_id_enseignant_foreign` (`id_enseignant`),
+  ADD KEY `enseignants_classe_id_foreign` (`classe_id`);
 
 --
 -- Index pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `etudiants_id_etudiant_foreign` (`id_etudiant`);
+  ADD KEY `etudiants_id_etudiant_foreign` (`id_etudiant`),
+  ADD KEY `etudiants_classe_id_foreign` (`classe_id`);
 
 --
 -- Index pour la table `failed_jobs`
@@ -264,16 +297,22 @@ ALTER TABLE `admins`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT pour la table `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT pour la table `enseignants`
 --
 ALTER TABLE `enseignants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `failed_jobs`
@@ -285,19 +324,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT pour la table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Contraintes pour les tables déchargées
@@ -313,12 +352,14 @@ ALTER TABLE `admins`
 -- Contraintes pour la table `enseignants`
 --
 ALTER TABLE `enseignants`
+  ADD CONSTRAINT `enseignants_classe_id_foreign` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `enseignants_id_enseignant_foreign` FOREIGN KEY (`id_enseignant`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
+  ADD CONSTRAINT `etudiants_classe_id_foreign` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `etudiants_id_etudiant_foreign` FOREIGN KEY (`id_etudiant`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 

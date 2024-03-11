@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enseignants', function (Blueprint $table) {
+        Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_enseignant');
-            $table->string('matiere');
+            $table->string('libelle');
             $table->timestamps();
-
-            // Déclaration de la clé étrangère
-            $table->foreign('id_enseignant')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enseignants');
+        Schema::dropIfExists('classes');
     }
 };
