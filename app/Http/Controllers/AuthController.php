@@ -33,6 +33,7 @@ class AuthController extends Controller
             ]
         ]);
 
+
         $user = User::create([
             'name' => $request->name,
             'prenom' => $request->prenom,
@@ -42,6 +43,7 @@ class AuthController extends Controller
         ]);
          // Récupération de l'ID de la classe sélectionnée
     $classe_id = $request->input('classe_id');
+
 
         if ($request->role === 'enseignant') {
             // Créer un enregistrement dans la table enseignant
@@ -83,16 +85,67 @@ class AuthController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Charger la relation enseignant si l'utilisateur est un enseignant
 
         $classes = Classe::all();
         $userss = Auth::user()->where('role', 'etudiant')->whereHas('etudiant')->with('etudiant')->first();
+        //reuperation des donnée
         $users = Auth::user()->where('role', 'enseignant')->whereHas('enseignant')->with('enseignant')->first();
+        //recuperation donnée de (l'utisateur connecté pour etudiant)
         $usersss = Auth::user()->where('role', 'etudiant')->whereHas('etudiant')
         ->with(['etudiant' => function ($query) {
         $query->with('classe');
         }])
         ->first();
+        //recuperation donnée de (l'utisateur connecté pour enseignant)
         $userssse = Auth::user()->where('role', 'enseignant')->whereHas('enseignant')
         ->with(['enseignant' => function ($query) {
         $query->with('classe');

@@ -64,15 +64,17 @@
         <p><strong>Prénom:</strong> {{ $userss->prenom }}</p>
         <p><strong>Email:</strong> {{ $userss->email }}</p>
         <p><strong>Rôle:</strong> {{ $userss->role }}</p>
-        <p><strong>Date d'inscription:</strong> {{ $userss->created_at }}</p>
         <p>
+            <strong>
             @if($userss->role === 'etudiant' && $userss->etudiant)
-                Matricule: {{ $userss->etudiant->matricule }}
+                Matricule:</strong> {{ $userss->etudiant->matricule }}
             @else
                 N/A
             @endif
+
         </p>
         <p><strong>Classe:</strong> {{ $usersss->etudiant ? ($userss->etudiant->classe ? $usersss->etudiant->classe->libelle : 'Non définie') : 'Non définie' }}</p>
+        <p><strong>Date d'inscription:</strong> {{ $userss->created_at }}</p>
         <div class="yo">
 
             <a href="{{ route('logout') }}" class="btn">Déconnexion</a>

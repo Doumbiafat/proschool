@@ -3,19 +3,19 @@
 
 <head>
     <meta charset="utf-8" />
-    
-   
+
+
     <title>PROSCHOOL</title>
 
 
     <!-- <<Mobile Viewport Code>> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-            
+
     <!-- <<Attched Stylesheets>> -->
     <link rel="stylesheet" href="{{asset('css/theme.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/media.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" type="text/css" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,600italic,400italic,800,700' rel='stylesheet' type='text/css'>    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,600italic,400italic,800,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 
 </head>
@@ -25,7 +25,7 @@
 <div class="DesignHolder">
 
 	<div class="LayoutFrame">
-    
+
         <header>
             <div class="Center">
                 <div class="site-logo">
@@ -34,10 +34,10 @@
                <div id="mobile_sec">
                <div class="mobile"><i class="fa fa-bars"></i><i class="fa fa-times"></i></div>
                 <div class="menumobile">
-                    
+
                     <nav class="Navigation">
                         <ul>
-                            <li class="active">                                
+                            <li class="active">
                                 <a href="#home">Accueil</a>
                                 <span class="menu-item-bg"></span>
                             </li>
@@ -59,30 +59,30 @@
                             </li>
                         </ul>
                     </nav>
-               
+
 
 				</div>
 				</div>
                 <div class="clear"></div>
             </div>
         </header>
-     
+
 
         <div class="Banner_sec" id="home">
-            
+
             <div class="bannerside">
 	            <div class="Center">
-                   
+
                     <div class="leftside">
-                        
+
                         <h3>Bienvenue sur notre site de<span> gestion d'université</span></h3>
                         <p>Notre site de gestion d'université est conçu pour simplifier et améliorer la gestion des étudiants, des enseignants et du personnel administratif au sein de notre établissement. </p>
                         <a href="#about">PLUS DE DETAILS</a>
-                    </div>                        								
-                   
+                    </div>
+
 
                     <div class="rightside">
-                    	<ul id="slider">	
+                    	<ul id="slider">
                     		<li>
                                 <div class="Slider">
                                     <figure><img src="{{asset('img/slider-img1.jpg')}}" alt="image"></figure>
@@ -91,8 +91,8 @@
                                             <ul>
                                                 <li><a href="#"><i class="fa fa-heart"></i>700</a></li>
                                                 <li><a href="#"><i class="fa fa-commenting"></i>150</a></li>
-                                            </ul>	
-                                        </div>                        								
+                                            </ul>
+                                        </div>
                                         <div class="Lorem">
                                             <p>GESTION<span>  D'UNIVERSITÉ </span></p>
                                         </div>
@@ -107,40 +107,40 @@
                                             <ul>
                                                 <li><a href="#"><i class="fa fa-heart"></i>700</a></li>
                                                 <li class="num"><a href="#"><i class="fa fa-commenting"></i>150</a></li>
-                                            </ul>	
-                                        </div>                        								
+                                            </ul>
+                                        </div>
                                         <div class="Lorem">
                                             <p>GESTION <span>D'UNIVERSITÉ</span></p>
                                         </div>
                                     </div>
                                 </div>
 							</li>
-						</ul>                                                            
-            	        <figure><img src="{{asset('img/Shadow-img.png')}}" alt="image" class="Shadow"></figure>                                                        
+						</ul>
+            	        <figure><img src="{{asset('img/Shadow-img.png')}}" alt="image" class="Shadow"></figure>
                     </div>
 
 	            </div>
             </div>
-       
-        
+
+
             <div class="clear"></div>
         </div>
-    
+
          <div class="bgcolor"></div>
-    
+
         <div id="Container">
-          
-            
+
+
             <div class="About_sec" id="about">
-                <div class="Center">            	
-                    <h2>A propos de Nous</h2>            		
+                <div class="Center">
+                    <h2>A propos de Nous</h2>
                     <p>Grâce à notre plateforme intuitive et conviviale, vous pourrez accéder facilement à toutes les fonctionnalités nécessaires à la gestion quotidienne de l'université.
                         Notre site de gestion d'université est conçu pour répondre aux besoins spécifiques des établissements d'enseignement supérieur, en offrant une solution complète et efficace pour la gestion de toutes les activités académiques et administratives. Nous sommes déterminés à fournir un service de qualité et à faciliter la gestion de votre université.
 
 N'hésitez pas à explorer notre site et à nous contacter si vous avez des questions ou des suggestions. Nous sommes là pour vous aider à tirer le meilleur parti de notre plateforme de gestion d'université.
                     </p>
-                    <div class="Line"></div>	
-                  
+                    <div class="Line"></div>
+
                     <div class="Tabside">
                         <ul>
                             <li><a href="javascript:;" class="tabLink activeLink" id="cont-1">Misions</a></li>
@@ -166,7 +166,7 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                         <div class="tabcontent hide" id="cont-2-1">
                             <div class="TabImage">
                                 <div class="img1">
-                                    <figure><img src="{{asset('img/about-img1.png')}}" alt="image"></figure>	
+                                    <figure><img src="{{asset('img/about-img1.png')}}" alt="image"></figure>
                                 </div>
                                 <div class="img2">
                                     <figure><img src="{{asset('img/about-img2.jpg')}}" alt="image"></figure>
@@ -181,7 +181,7 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                         <div class="tabcontent hide" id="cont-3-1">
                             <div class="TabImage">
                                 <div class="img1">
-                                    <figure><img src="{{asset('img/about-img2.jpg')}}" alt="image"></figure>	
+                                    <figure><img src="{{asset('img/about-img2.jpg')}}" alt="image"></figure>
                                 </div>
                                 <div class="img2">
                                     <figure><img src="{{asset('img/about-img1.png')}}" alt="image"></figure>
@@ -195,16 +195,16 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                         </div>
 	                    <div class="clear"></div>
                     </div>
-                    
+
                 </div>
             </div>
-          
+
         <div class="Services_sec" id="services">
             <div class="Center">
                 <h2>Nos Services</h2>
-                <p> Notre plateforme de gestion d'université offre une gamme complète de services conçus pour répondre aux besoins spécifiques des établissements d'enseignement supérieur.  <br> Que vous soyez un étudiant, un enseignant, un membre du personnel administratif ou un administrateur d'université.</p>		
+                <p> Notre plateforme de gestion d'université offre une gamme complète de services conçus pour répondre aux besoins spécifiques des établissements d'enseignement supérieur.  <br> Que vous soyez un étudiant, un enseignant, un membre du personnel administratif ou un administrateur d'université.</p>
                 <div class="Line"></div>
-                
+
                 <div class="Serviceside">
                     <ul>
 	                    <li class="Development"><a href="#services"><h4>GESTION ENSEIGNANT</h4></a></li>
@@ -213,17 +213,17 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
 	                    <li class="System"><a href="#services"><h4>NUMERISER SYSTEME A 100% </h4></a></li>
                     </ul>
                 </div>
-               
-            </div>                
+
+            </div>
         </div>
-       
+
         <div class="Pricing_sec" id="pricing">
             <div class="Center">
                 <h2>Pricing</h2>
                 <p>All plans come with unlimited disk space. Our support can be as quick as 15 minutes to get a response. Sed non<br>
                 mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu.</p>
                 <div class="Line"></div>
-              
+
                 <div class="Pricingside">
                     <ul>
                         <li>
@@ -295,12 +295,12 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
 	                            <a href="#">order now</a>
                             </div>
                         </li>
-                    </ul>                	
+                    </ul>
                 </div>
-              
+
             </div>
         </div>
-       
+
         <div class="Contact_sec" id="contact">
             <div class="Contactside">
                 <div class="Center">
@@ -308,20 +308,20 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                     <p>Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum<br>
                     feugiat velit mauris egestas quamut aliquam massa nisl quis neque. Suspendisse in orci enim.</p>
                     <div class="Line"></div>
-                </div>  
+                </div>
 
             </div>
 
                 <div class="Map">
-                
+
                     <div id="GoogleMap"></div>
-                
+
                 </div>
-                
-                
+
+
                 <div class="Get_sec">
-                    <div class="Mid">					
-                        
+                    <div class="Mid">
+
                         <div class="Leftside">
                             <form action="#">
                                 <fieldset>
@@ -333,18 +333,18 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                                 </fieldset>
                             </form>
                         </div>
-                       
+
                         <div class="Rightside">
                             <h3>Get in touch !</h3>
                                 <address>
                                     990 Proin Gravida Street, Aliquet Snean Tate,<br>Lincoln Way, San Francisco, California.
-                                </address>	
+                                </address>
                                 <address class="Number">
-                                    (+001) 001 002 0034, (+002) 009 008 0760<br>(+003) 456 050 0670 
-                                </address>	
+                                    (+001) 001 002 0034, (+002) 009 008 0760<br>(+003) 456 050 0670
+                                </address>
                                 <address class="Email">
                                     <a href="mailto:info@november.com">info@november.com</a>
-                                </address>	
+                                </address>
                                 <div class="clear"></div>
                                 <ul>
                                     <li><a rel="nofollow" href="http://www.facebook.com/templatemo"
@@ -353,22 +353,22 @@ N'hésitez pas à explorer notre site et à nous contacter si vous avez des ques
                                     <li><a href="#"><img src="img/google-plus-icn.png" alt="image"></a></li>
                                 </ul>
                         </div>
-                        
+
                     </div>
-                    
+
                     <footer>
-                        <div class="Cntr">                
+                        <div class="Cntr">
                             <p>COPYRIGHT © 2024 UTA SCORPION GROUPE.</p>
                         </div>
                     </footer>
-                  
+
                 </div>
-                
-            
+
+
             </div>
-            
+
         </div>
-      
+
 	</div>
 
 </div>
