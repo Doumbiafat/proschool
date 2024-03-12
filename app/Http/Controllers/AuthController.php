@@ -83,56 +83,6 @@ class AuthController extends Controller
         $request->session()->regenerate();
         $user = Auth::user();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Charger la relation enseignant si l'utilisateur est un enseignant
 
         $classes = Classe::all();
@@ -156,7 +106,7 @@ class AuthController extends Controller
         // Vérifier le rôle et rediriger en conséquence
         if (auth()->user()->role === 'etudiant') {
             $token = $user->createToken('auth_token')->plainTextToken;
-            return view('etudiant', compact('userss','usersss'));
+            return view('etudiant', compact('user','usersss'));
         } elseif (auth()->user()->role === 'enseignant') {
             $token = $user->createToken('auth_token')->plainTextToken;
               return view('enseignant', compact('user','users','userssse'));
@@ -226,6 +176,34 @@ public function listEtudiants()
 
     return view('list', compact('etudiants','enseignants'));
 }
+public function noteEtudiants()
+{
+    // Récupérer l'utilisateur connecté
+    $user = Auth::user();
+
+    // Vérifier si l'utilisateur est un enseignant
+    if ($user->role === 'enseignant' && $user->enseignant) {
+        // Récupérer la classe de l'enseignant connecté
+        $classe = $user->enseignant->classe;
+
+        // Vérifier si la classe existe
+        if ($classe) {
+            // Récupérer les étudiants associés à cette classe
+            $etudiants = $classe->etudiants;
+
+            // Récupérer la matière de l'enseignant connecté
+            $matiere = $user->enseignant->matiere;
+
+            // Retourner la vue avec les étudiants et la matière de l'enseignant
+            return view('yoo', compact('etudiants', 'matiere'));
+        }
+    }
+
+    // Rediriger si l'utilisateur n'est pas un enseignant ou si la relation enseignant/classe n'est pas chargée
+    return redirect()->route('login')->withErrors(['error' => 'Vous devez être un enseignant pour accéder à cette fonctionnalité.']);
+}
+
+
 public function createClasse(Request $request)
 {
     // Valider les données du formulaire
@@ -241,6 +219,20 @@ public function createClasse(Request $request)
     // Rediriger avec un message de succès
     return redirect()->back()->with('success', 'La classe a été ajoutée avec succès.');
 }
+public function saveNotes(Request $request)
+{
+    $notes = $request->notes;
+
+    foreach($notes as $index => $note) {
+        $etudiant = Etudiant::findOrFail($request->etudiant_ids[$index]);
+        $etudiant->notes = $note;
+        $etudiant->save();
+    }
+
+    // Rediriger avec un message de succès ou toute autre action appropriée
+    return redirect()->back()->with('success', 'Les notes ont été enregistrées avec succès.');
+}
+
 }
 
 

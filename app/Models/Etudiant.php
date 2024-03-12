@@ -9,7 +9,8 @@ class Etudiant extends Model
 {
 
     use HasFactory,HasFactory, Notifiable;
-    protected $fillable = ['id_etudiant','classe_id', 'matricule'];
+    protected $fillable = ['id_etudiant','classe_id', 'matricule','notes'];
+
 
     public function user()
     {

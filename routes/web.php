@@ -27,12 +27,14 @@ Route::view('/admin', 'admin')->name('admin');
 Route::view('/conn', 'conn')->name('conn');
 Route::view('/classe', 'classe')->name('classe');
 Route::view('/index', 'index')->name('index');
+Route::view('/yoo', 'yoo')->name('yoo');
 
 
 
 
 Route::middleware('auth')->get('/profile', [AuthController::class, 'profile'])->name('profile');
 Route::middleware('auth')->get('/etudiants', [AuthController::class, 'listEtudiants'])->name('listEtudiants');
+Route::middleware('auth')->get('/note', [AuthController::class, 'noteEtudiants'])->name('noteEtudiants');
 
 
 
@@ -41,5 +43,5 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/create-classe', [AuthController::class, 'createClasse'])->name('createClasse');
-
+Route::post('/save-notes', [AuthController::class, 'saveNotes'])->name('save.notes');
 

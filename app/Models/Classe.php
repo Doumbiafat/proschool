@@ -13,4 +13,9 @@ class Classe extends Model
 
         // Les colonnes que vous pouvez remplir avec la méthode create
         protected $fillable = ['libelle'];
+        public function etudiants()
+        {
+            return $this->hasMany(Etudiant::class);
+        }
+
 }

@@ -59,23 +59,24 @@
 
 <body>
    <div class="container">
-    <h1>Profile de {{ $users->name }}</h1>
-    <p><strong>Nom:</strong> {{ $users->name }}</p>
-    <p><strong>Prénom:</strong> {{ $users->prenom }}</p>
-    <p><strong>Email:</strong> {{ $users->email }}</p>
-    <p><strong>Rôle:</strong> {{ $users->role }}</p>
-    <p><strong>Date d'inscription:</strong> {{ $users->created_at }}</p>
+    <h1>Profile de {{ $user->name }}</h1>
+    <p><strong>Nom:</strong> {{ $user->name }}</p>
+    <p><strong>Prénom:</strong> {{ $user->prenom }}</p>
+    <p><strong>Email:</strong> {{ $user->email }}</p>
+    <p><strong>Rôle:</strong> {{ $user->role }}</p>
+    <p><strong>Date d'inscription:</strong> {{ $user->created_at }}</p>
     <p>
-        @if($users->role === 'enseignant' && $users->enseignant)
-            Matière: {{ $users->enseignant->matiere }}
+        @if($user->role === 'enseignant' && $user->enseignant)
+            Matière: {{ $user->enseignant->matiere }}
         @else
             N/A
         @endif
     </p>
-    <p><strong>Classe:</strong> {{ $userssse->enseignant ? ($userssse->enseignant->classe ? $userssse->enseignant->classe->libelle : 'Non définie') : 'Non définie' }}</p>
+    <p><strong>Classe:</strong> {{ $user->enseignant ? ($user->enseignant->classe ? $user->enseignant->classe->libelle : 'Non définie') : 'Non définie' }}</p>
     <div class="yo">
         <a href="{{ route('logout') }}" class="btn">Déconnexion</a>
         <a href="#" class="btn">Modifier</a>
+        <a href="/note">notes</a>
     </div>
 </div>
 
