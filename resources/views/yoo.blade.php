@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Ajouter des notes') }}</div>
+            <div class="card" style="border-color: #ffa500; background-color: #f0f8ff;">
+                <div class="card-header" style="background-color: #ffa500; color: white;">{{ __('Ajouter des notes') }}</div>
 
                 <div class="card-body">
                     @if (session('success'))
@@ -39,7 +39,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" style="background-color: #ffa500; border-color: #ffa500;">
                                     {{ __('Enregistrer les notes') }}
                                 </button>
                             </div>
