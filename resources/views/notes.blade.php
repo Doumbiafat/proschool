@@ -23,7 +23,7 @@
                             <thead>
                                 <tr>
                                     <th>Nom de l'étudiant</th>
-                                    <th>Note</th>
+                                    <th>Notes selon la matiere</th>
                                 </tr>
                             </thead>
                             <tbody>
