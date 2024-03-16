@@ -211,8 +211,55 @@ class AuthController extends Controller
         // Rediriger si l'utilisateur n'est pas un enseignant ou si la relation enseignant/classe n'est pas chargée
         return redirect()->route('login')->withErrors(['error' => 'Vous devez être un enseignant pour accéder à cette fonctionnalité.']);
     }
+    public function voirmesnotes()
+    {
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
 
+        // Vérifier si l'utilisateur est un étudiant et s'il a des notes associées
+        if ($user->role === 'etudiant' && $user->etudiant) {
+            // Récupérer les notes de l'étudiant connecté
+            $etudiant = $user->etudiant;
+            $notes = $etudiant->notes()->first(); // Modifier ici pour récupérer les notes
 
+            // Passer les notes à la vue et retourner la vue
+            return view('voirmesnote', compact('notes'));
+        }
+
+        // Rediriger ou afficher un message d'erreur si l'utilisateur n'est pas un étudiant ou s'il n'a pas de notes
+        return redirect()->route('login')->withErrors(['error' => 'Vous devez être un étudiant pour accéder à cette fonctionnalité.']);
+    }
+    public function Listenotes()
+    {
+        // Récupérer tous les utilisateurs ayant le rôle "etudiant"
+        $etudiants = User::where('role', 'etudiant')->get();
+
+        // Vérifier s'il y a des étudiants
+        if ($etudiants->count() > 0) {
+            // Tableau pour stocker toutes les notes
+            $allNotes = [];
+
+            // Parcourir tous les étudiants pour récupérer leurs notes
+            foreach ($etudiants as $etudiant) {
+                if ($etudiant->etudiant) {
+                    // Récupérer les notes de l'étudiant
+                    $notes = $etudiant->etudiant->notes()->first(); // Modifier ici pour récupérer les notes
+
+                    // Ajouter les notes au tableau $allNotes
+                    $allNotes[] = [
+                        'etudiant' => $etudiant,
+                        'notes' => $notes,
+                    ];
+                }
+            }
+
+            // Passer toutes les notes à la vue et retourner la vue
+            return view('Listenote', compact('allNotes'));
+        }
+
+        // Rediriger ou afficher un message d'erreur si aucun étudiant trouvé
+        return redirect()->route('login')->withErrors(['error' => 'Aucun étudiant trouvé.']);
+    }
     public function createClasse(Request $request)
     {
         // Valider les données du formulaire

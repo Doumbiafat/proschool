@@ -20,4 +20,10 @@ class Etudiant extends Model
     {
         return $this->belongsTo(Classe::class, 'classe_id');
     }
+
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
 }

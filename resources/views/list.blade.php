@@ -223,6 +223,11 @@ $(document).ready(function(){
           <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Classes</span>
         </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Listenote">
+          <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Notes</span>
+        </a>
+                </li>
 				</ul>
 
 

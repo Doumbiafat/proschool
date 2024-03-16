@@ -37,6 +37,8 @@ Route::view('/yoo', 'yoo')->name('yoo');
 Route::middleware('auth')->get('/profile', [AuthController::class, 'profile'])->name('profile');
 Route::middleware('auth')->get('/etudiants', [AuthController::class, 'listEtudiants'])->name('listEtudiants');
 Route::middleware('auth')->get('/note', [AuthController::class, 'noteEtudiants'])->name('noteEtudiants');
+Route::middleware('auth')->get('/voirnote', [AuthController::class, 'voirmesnotes'])->name('voirmesnotes');
+
 
 
 
@@ -46,6 +48,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/create-classe', [AuthController::class, 'createClasse'])->name('createClasse');
 Route::get('/Listeclasse', [AuthController::class, 'Listeclasse'])->name('Listeclasse');
+Route::get('/Listenote', [AuthController::class, 'Listenotes'])->name('Listenote');
 Route::get('/Ajouteruser', [AuthController::class, 'Ajouteruser'])->name('Ajouteruser');
 Route::post('/save-notes', [AuthController::class, 'saveNotes'])->name('save.notes');
 Route::delete('/delete/{student}', [AuthController::class, 'delete'])->name('delete');

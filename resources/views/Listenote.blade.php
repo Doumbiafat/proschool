@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +26,27 @@
 
     background:rgb(230, 164, 42);
 }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #dddddd;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 2px solid #dddddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: orange;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
 </style>
 
 <body>
@@ -74,8 +96,12 @@
           <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Notes</span>
         </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Listenote">
+          <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Notes</span>
+        </a>
+                </li>
 				</ul>
-
 
 
 			</div>
@@ -243,79 +269,75 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-
-					<h1 class="h3 mb-3">Dashboard</h1>
-                    @if(session()->has('success'))
-                    <div class="alert alert-success">
-                        {{ session()->get('success') }}
+                    <div class="container">
+                        <h1>Liste des Notes</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th colspan="3">Math</th>
+                                    <th colspan="3">Physique</th>
+                                    <th colspan="3">Anglais</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Note 1</th>
+                                    <th>Note 2</th>
+                                    <th>Note 3</th>
+                                    <th>Note 1</th>
+                                    <th>Note 2</th>
+                                    <th>Note 3</th>
+                                    <th>Note 1</th>
+                                    <th>Note 2</th>
+                                    <th>Note 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($allNotes as $item)
+                                <tr>
+                                    <td>{{ $item['etudiant']->name }}</td>
+                                    <td>{{ $item['etudiant']->prenom }}</td>
+                                    @if(isset($item['notes']->math))
+                                        @foreach(json_decode($item['notes']->math, true) as $noteArray)
+                                            @foreach($noteArray as $value)
+                                                <td>{{ htmlspecialchars($value) }}</td>
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                    @endif
+                                    @if(isset($item['notes']->physique))
+                                        @foreach(json_decode($item['notes']->physique, true) as $noteArray)
+                                            @foreach($noteArray as $value)
+                                                <td>{{ htmlspecialchars($value) }}</td>
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                    @endif
+                                    @if(isset($item['notes']->anglais))
+                                        @foreach(json_decode($item['notes']->anglais, true) as $noteArray)
+                                            @foreach($noteArray as $value)
+                                                <td>{{ htmlspecialchars($value) }}</td>
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                    @endif
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                @endif
 
-                    <section class="ins" id="ins">
-        <div class="box">
-          <span class="borderLine"></span>
-          <form method="POST" action="/register" >
-            @csrf
-            <h2>Inscrire</h2>
-            <div class="inputBox">
-                <input type="name"name="name" id="name" required>
-                <span>nom</span>
-                <i></i>
-            </div>
-
-            <div class="inputBox">
-                <input type="prenom"name="prenom" id="prenom" required>
-                <span>prenom</span>
-                <i></i>
-            </div>
-
-
-              <div class="inputBox">
-                  <input type="email"name="email" id="email" required>
-                  <span>email</span>
-                  <i></i>
-
-              </div>
-              <div class="inputBox">
-                  <input type="password" name="password" id="password" required>
-                  <span>mot de passe</span>
-                  <i></i>
-
-              </div>
-              <div class="links">
-                  <a href="#">dites-nous tous</a>
-                  <!--a href="inscription.php">s'inscrire</a-->
-              </div>
-
-              <select select name="role" id="role">
-                <option value="etudiant">Étudiant</option>
-                <option value="enseignant">Enseignant</option>
-                <option value="admin">Admin</option>
-            </select>
-
-            <!-- Champ de saisie pour la matière, visible uniquement si le rôle sélectionné est "enseignant" -->
-            <select name="matiere" id="matiere">
-                <option value="math">Mathématiques</option>
-                <option value="anglais">Anglais</option>
-                <option value="physique">Physique</option>
-            </select>
-            <select name="classe_id" id="classe_id">
-                @foreach($classes as $classe)
-                    <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
-                @endforeach
-            </select>
-
-            <div id="matriculeField" style="display: none;">
-                <input type="text" name="matricule" id="matricule" placeholder="Matricule" required>
-            </div>
-
-              <button type="submit">Inscrire</button>
-
-
-          </form>
-
-        </div>
-      </section>
 
 					</div>
 
@@ -564,3 +586,4 @@
 </body>
 
 </html>
+
