@@ -238,6 +238,78 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 
+					<h1 class="h3 mb-3">Dashboard</h1>
+                    @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+
+                    <section class="ins" id="ins">
+        <div class="box">
+          <span class="borderLine"></span>
+          <form method="POST" action="/register" >
+            @csrf
+            <h2>Inscrire</h2>
+            <div class="inputBox">
+                <input type="name"name="name" id="name" required>
+                <span>nom</span>
+                <i></i>
+            </div>
+
+            <div class="inputBox">
+                <input type="prenom"name="prenom" id="prenom" required>
+                <span>prenom</span>
+                <i></i>
+            </div>
+
+
+              <div class="inputBox">
+                  <input type="email"name="email" id="email" required>
+                  <span>email</span>
+                  <i></i>
+
+              </div>
+              <div class="inputBox">
+                  <input type="password" name="password" id="password" required>
+                  <span>mot de passe</span>
+                  <i></i>
+
+              </div>
+              <div class="links">
+                  <a href="#">dites-nous tous</a>
+                  <!--a href="inscription.php">s'inscrire</a-->
+              </div>
+
+              <select select name="role" id="role">
+                <option value="etudiant">Étudiant</option>
+                <option value="enseignant">Enseignant</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <!-- Champ de saisie pour la matière, visible uniquement si le rôle sélectionné est "enseignant" -->
+            <select name="matiere" id="matiere">
+                <option value="math">Mathématiques</option>
+                <option value="anglais">Anglais</option>
+                <option value="physique">Physique</option>
+            </select>
+            <select name="classe_id" id="classe_id">
+                @foreach($classes as $classe)
+                    <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
+                @endforeach
+            </select>
+
+            <div id="matriculeField" style="display: none;">
+                <input type="text" name="matricule" id="matricule" placeholder="Matricule" required>
+            </div>
+
+              <button type="submit">Inscrire</button>
+
+
+          </form>
+
+        </div>
+      </section>
 
 					</div>
 

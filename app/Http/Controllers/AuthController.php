@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Classe;
 use App\Models\Enseignant;
 use App\Models\Etudiant;
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -65,8 +66,7 @@ class AuthController extends Controller
                 'id_admin' => $user->id
             ]);
         }
-
-        return response()->json(['message' => 'Utilisateur enregistré avec succès'], 201);
+        return redirect()->back()->with('success', 'Utilisateur enregistré avec succès.');
     }
 
     public function login(Request $request)
@@ -84,7 +84,6 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Charger la relation enseignant si l'utilisateur est un enseignant
-
         $classes = Classe::all();
         $userss = Auth::user()->where('role', 'etudiant')->whereHas('etudiant')->with('etudiant')->first();
         //reuperation des donnée
@@ -127,113 +126,145 @@ class AuthController extends Controller
         'email' => 'Les informations d\'identification fournies ne correspondent pas à nos enregistrements.',
     ]);
 }
+    public function Ajouteruser(Request $request){
+        $classes = Classe::all();
+        return view('Ajouteruser', compact('classes'));
 
-public function logout(Request $request)
-{
-    // Vérifier si l'utilisateur est connecté
-    if (Auth::check()) {
-        // Supprimer les jetons d'authentification de l'utilisateur
-        Auth::user()->tokens()->delete();
 
-        // Détruire la session de l'utilisateur
-        $request->session()->invalidate();
 
-        // Effacer les cookies d'authentification
-        $request->session()->regenerateToken();
-
-        // Rediriger l'utilisateur vers la page de connexion
-        return view('conn');
-
-    } else {
-        // Si aucun utilisateur n'est connecté, renvoyer une réponse JSON avec un message d'erreur
-        return response()->json([
-            "status" => 0,
-            "message"=> "Aucun utilisateur connecté",
-        ], 401);
     }
-}
-public function profile()
-{
-    // Récupérer l'utilisateur connecté
-    $user = Auth::user();
 
-    // Vérifier si l'utilisateur est connecté
-    if ($user) {
-        // Retourner la vue avec les informations de l'utilisateur
-        return view('profile', compact('user'));
-    } else {
-        // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
-        return redirect()->route('login');
+
+
+    public function logout(Request $request)
+    {
+        // Vérifier si l'utilisateur est connecté
+        if (Auth::check()) {
+            // Supprimer les jetons d'authentification de l'utilisateur
+            Auth::user()->tokens()->delete();
+
+            // Détruire la session de l'utilisateur
+            $request->session()->invalidate();
+
+            // Effacer les cookies d'authentification
+            $request->session()->regenerateToken();
+
+            // Rediriger l'utilisateur vers la page de connexion
+            return view('conn');
+
+        } else {
+            // Si aucun utilisateur n'est connecté, renvoyer une réponse JSON avec un message d'erreur
+            return response()->json([
+                "status" => 0,
+                "message"=> "Aucun utilisateur connecté",
+            ], 401);
+        }
     }
-}
+    public function profile()
+    {
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
 
-public function listEtudiants()
-{
-    //
-    $etudiants = User::where ('role','etudiant')->with('etudiant')->get();
-
-    $enseignants = User::where('role', 'enseignant')->with('enseignant')->get();
-
-    return view('list', compact('etudiants','enseignants'));
-}
-public function noteEtudiants()
-{
-    // Récupérer l'utilisateur connecté
-    $user = Auth::user();
-
-    // Vérifier si l'utilisateur est un enseignant
-    if ($user->role === 'enseignant' && $user->enseignant) {
-        // Récupérer la classe de l'enseignant connecté
-        $classe = $user->enseignant->classe;
-
-        // Vérifier si la classe existe
-        if ($classe) {
-            // Récupérer les étudiants associés à cette classe
-            $etudiants = $classe->etudiants;
-
-            // Récupérer la matière de l'enseignant connecté
-            $matiere = $user->enseignant->matiere;
-
-            // Retourner la vue avec les étudiants et la matière de l'enseignant
-            return view('yoo', compact('etudiants', 'matiere'));
+        // Vérifier si l'utilisateur est connecté
+        if ($user) {
+            // Retourner la vue avec les informations de l'utilisateur
+            return view('profile', compact('user'));
+        } else {
+            // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
+            return redirect()->route('login');
         }
     }
 
-    // Rediriger si l'utilisateur n'est pas un enseignant ou si la relation enseignant/classe n'est pas chargée
-    return redirect()->route('login')->withErrors(['error' => 'Vous devez être un enseignant pour accéder à cette fonctionnalité.']);
-}
+    public function listEtudiants()
+    {
+        //
+        $etudiants = User::where ('role','etudiant')->with('etudiant')->get();
+
+        $enseignants = User::where('role', 'enseignant')->with('enseignant')->get();
+
+        return view('list', compact('etudiants','enseignants'));
+    }
+    public function noteEtudiants()
+    {
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
+
+        // Vérifier si l'utilisateur est un enseignant
+        if ($user->role === 'enseignant' && $user->enseignant) {
+            // Récupérer la classe de l'enseignant connecté
+            $classe = $user->enseignant->classe;
+
+            // Vérifier si la classe existe
+            if ($classe) {
+                // Récupérer les étudiants associés à cette classe
+                $etudiants = $classe->etudiants;
+
+                // Récupérer la matière de l'enseignant connecté
+                $matiere = $user->enseignant->matiere;
+
+                // Retourner la vue avec les étudiants et la matière de l'enseignant
+                return view('notes', compact('etudiants', 'matiere'));
+            }
+        }
 
 
-public function createClasse(Request $request)
-{
-    // Valider les données du formulaire
-    $request->validate([
-        'libelle' => 'required|unique:classes|max:255',
-    ]);
-
-    // Créer une nouvelle classe
-    Classe::create([
-        'libelle' => $request->libelle,
-    ]);
-
-    // Rediriger avec un message de succès
-    return redirect()->back()->with('success', 'La classe a été ajoutée avec succès.');
-}
-public function saveNotes(Request $request)
-{
-    $notes = $request->notes;
-
-    foreach($notes as $index => $note) {
-        $etudiant = Etudiant::findOrFail($request->etudiant_ids[$index]);
-        $etudiant->notes = $note;
-        $etudiant->save();
+        // Rediriger si l'utilisateur n'est pas un enseignant ou si la relation enseignant/classe n'est pas chargée
+        return redirect()->route('login')->withErrors(['error' => 'Vous devez être un enseignant pour accéder à cette fonctionnalité.']);
     }
 
-    // Rediriger avec un message de succès ou toute autre action appropriée
-    return redirect()->back()->with('success', 'Les notes ont été enregistrées avec succès.');
+
+    public function createClasse(Request $request)
+    {
+        // Valider les données du formulaire
+        $request->validate([
+            'libelle' => 'required|unique:classes|max:255',
+        ]);
+
+        // Créer une nouvelle classe
+        Classe::create([
+            'libelle' => $request->libelle,
+        ]);
+
+        // Rediriger avec un message de succès
+        return redirect()->back()->with('success', 'La classe a été ajoutée avec succès.');
+    }
+    public function Listeclasse(Request $request){
+        $classeList =Classe::get();
+
+
+        return view('Listeclasse', compact('classeList'));
+
+    }
+    public function saveNotes(Request $request)
+    {
+        foreach($request->notes as $index => $note) {
+            $etudiantId = $request->etudiant_ids[$index];
+
+            // Récupérer la matière pour laquelle les notes sont saisies
+            $matiere = $request->matiere;
+
+            // Mettre à jour ou créer une entrée de note pour l'étudiant et la matière
+            $etudiantNotes = Note::updateOrCreate(
+                ['etudiant_id' => $etudiantId],
+                [$matiere => json_encode($note)]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Les notes ont été enregistrées avec succès.');
+    }
+    public function delete(User $student)
+    {
+        $student->delete();
+        return redirect()->route('listEtudiants')->with('success', 'Étudiant supprimé avec succès.');
+    }
+    public function edit(User $user)
+{
+    return view('edit', compact('user'));
 }
 
+
 }
+
 
 
 

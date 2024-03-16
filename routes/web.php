@@ -25,9 +25,11 @@ Route::view('/etudiant', 'etudiant')->name('etudiant');
 Route::view('/enseignant', 'enseignant')->name('enseignant');
 Route::view('/admin', 'admin')->name('admin');
 Route::view('/conn', 'conn')->name('conn');
-Route::view('/classe', 'classe')->name('classe');
+Route::view('/ajouterclasse', 'ajouterclasse')->name('ajouterclasse');
 Route::view('/index', 'index')->name('index');
 Route::view('/yoo', 'yoo')->name('yoo');
+
+
 
 
 
@@ -43,5 +45,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/create-classe', [AuthController::class, 'createClasse'])->name('createClasse');
+Route::get('/Listeclasse', [AuthController::class, 'Listeclasse'])->name('Listeclasse');
+Route::get('/Ajouteruser', [AuthController::class, 'Ajouteruser'])->name('Ajouteruser');
 Route::post('/save-notes', [AuthController::class, 'saveNotes'])->name('save.notes');
+Route::delete('/delete/{student}', [AuthController::class, 'delete'])->name('delete');
+Route::get('/edit/{user}', [AuthController::class, 'edit'])->name('edit');
+
+
+
+
 

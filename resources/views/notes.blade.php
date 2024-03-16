@@ -13,10 +13,13 @@
 
                     <p>Matière: {{ $matiere }}</p>
 
+
                     <form method="POST" action="{{ route('save.notes') }}">
                         @csrf
 
                         <table class="table">
+                            <input type="hidden" name="matiere" value="{{ $matiere }}">
+
                             <thead>
                                 <tr>
                                     <th>Nom de l'étudiant</th>
@@ -28,12 +31,13 @@
                                 <tr>
                                     <td>{{ $etudiant->user->name }}</td>
                                     <td>
-                                        <input type="number" name="notes[]" class="form-control" value="{{ old('notes[]') }}" step="0.01" required>
-                                        <input type="hidden" name="etudiant_ids[]" value="{{ $etudiant->id }}">
+                                        <input type="number" name="notes[{{ $loop->index }}][{{ $matiere }}][]" class="form-control" value="{{ old('notes.' . $loop->index . '.' . $matiere . '.*') }}" step="0.01" required>
+                                        <input type="number" name="notes[{{ $loop->index }}][{{ $matiere }}][]" class="form-control" value="{{ old('notes.' . $loop->index . '.' . $matiere . '.*') }}" step="0.01" required>
+                                        <input type="number" name="notes[{{ $loop->index }}][{{ $matiere }}][]" class="form-control" value="{{ old('notes.' . $loop->index . '.' . $matiere . '.*') }}" step="0.01" required>
                                     </td>
+                                    <input type="hidden" name="etudiant_ids[]" value="{{ $etudiant->id }}">
                                 </tr>
-                            @endforeach
-
+                                @endforeach
                             </tbody>
                         </table>
 

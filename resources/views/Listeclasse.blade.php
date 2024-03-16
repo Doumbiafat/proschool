@@ -10,7 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	
+
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
 
@@ -19,7 +19,13 @@
 	<link href="{{asset('css/admin/app.css')}}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+<style>
 
+    .main{
+
+        background:rgb(230, 164, 42);
+    }
+    </style>
 <body>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
@@ -34,24 +40,34 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
+						<a class="sidebar-link" href="/admin">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/Ajouteruser">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Ajouter user</span>
+            </a>
+                    </li>
                     <li class="sidebar-item">
 						<a class="sidebar-link" href="/etudiants">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Users</span>
             </a>
 					</li>
                     <li class="sidebar-item">
-						<a class="sidebar-link" href="/classe">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Classes</span>
+						<a class="sidebar-link" href="/ajouterclasse">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">ajouter Classes</span>
             </a>
 					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/Listeclasse">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Classes</span>
+            </a>
+                    </li>
 
 				</ul>
 
-                
+
 			</div>
 		</nav>
 
@@ -218,25 +234,47 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
+                    <h1>Liste des étudiants</h1>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr style="background-color:  orange;">
+                                <th style="padding: 10px; border:  2px solid #dddddd;  text-align: center;">id</th>
+                                <th style="padding: 10px; border:  2px solid #dddddd; text-align: center;">Classe de l'etablissement</th>
+                                <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Date de creation </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($classeList as $item)
+                            <tr style="background-color:  #f2f2f2;">
+                                <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->id}}</td>
+                                <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->libelle}}</td>
+                                <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">{{$item->created_at}}
 
-                @if(session()->has('success'))
-    <div class="alert alert-success">
-        {{ session()->get('success') }}
-    </div>
-@endif
 
-<form action="{{ route('createClasse') }}" method="POST">
-    @csrf
-    <div class="form-group">
-        <label for="libelle">Libellé de la classe :</label>
-        <input type="text" class="form-control" id="libelle" name="libelle" placeholder="Entrez le libellé de la classe" required>
-        @error('libelle')
-            <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <button type="submit" class="btn btn-primary">Ajouter Classe</button>
-</form>
-                
+                            </tr>
+                            @empty
+                        <tr class="w-full">
+                            <td class=" flex-1 w-full items-center justify-center" colspan="4">
+                                <div>
+                                    <p class="flex justify-center content-center p-4"> <img
+                                            src="{{ asset('storage/empty.svg') }}" alt=""
+                                            class="w-20 h-20">
+                                    <div>Aucun élément trouvé!</div>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+
+                    @endforelse
+
+
+
+
+                </tbody>
+                    </table>
+
+
+
 
 				</div>
 			</main>
@@ -244,7 +282,7 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
-						
+
 						<div class="col-6 text-end">
 							<ul class="list-inline">
 								<li class="list-inline-item">

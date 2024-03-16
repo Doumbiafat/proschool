@@ -16,6 +16,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <style>
 
+
+.main{
+
+    background:rgb(230, 164, 42);
+}
+
 .table-responsive {
     margin: 30px 0;
 }
@@ -178,6 +184,7 @@ $(document).ready(function(){
 </head>
 
 <body>
+
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -191,24 +198,34 @@ $(document).ready(function(){
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
+						<a class="sidebar-link" href="/admin">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/Ajouteruser">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Ajouter user</span>
+            </a>
+                    </li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/etudiants">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Users</span>
             </a>
 					</li>
-                    <li class="sidebar-item">
-						<a class="sidebar-link" href="/classe">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Classes</span>
-            </a>
-					</li>
-
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/ajouterclasse">
+          <i class="align-middle" data-feather="book"></i> <span class="align-middle">ajouter Classes</span>
+        </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Listeclasse">
+          <i class="align-middle" data-feather="book"></i> <span class="align-middle">Liste Classes</span>
+        </a>
+                </li>
 				</ul>
 
-                
+
 			</div>
 		</nav>
 
@@ -376,7 +393,7 @@ $(document).ready(function(){
 			<main class="content">
 				<div class="container-fluid p-0">
 
-			
+
                 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -386,7 +403,7 @@ $(document).ready(function(){
                         <h2>User <b>Management</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="/admin" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Ajouter un utilisateur</span></a>
+
                         <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
                     </div>
                 </div>
@@ -402,6 +419,9 @@ $(document).ready(function(){
                         <th style="padding: 10px; border:  2px solid #dddddd; text-align: center">Rôle</th>
                         <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Créé</th>
                         <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Matricule</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Supprimer</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Modifier</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -420,6 +440,18 @@ $(document).ready(function(){
                                     N/A
                                 @endif
                             </td>
+                            <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">
+                                <form action="{{ route('delete', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                            <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">
+                                <a href="{{ route('edit', $item->id) }}" class="btn btn-primary">Modifier</a>
+                            </td>
+
+
 
 
                     </tr>
@@ -455,6 +487,8 @@ $(document).ready(function(){
                         <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Rôle</th>
                         <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Créé</th>
                         <th style="padding: 10px; border: 2px solid #dddddd; text-align: center;">Matiere</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Supprimer</th>
+                        <th style="padding: 10px; border:  2px solid #dddddd;text-align: center">Modifier</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -473,8 +507,19 @@ $(document).ready(function(){
                                 N/A
                             @endif
                         </td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">
+                            <form action="{{ route('delete', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                        <td style="padding: 10px; border: 2px solid #dddddd; text-align: center;">
+                            <a href="{{ route('edit', $item->id) }}" class="btn btn-primary">Modifier</a>
+                        </td>
 
-                    </tr>
+
+            </tr>
                     @empty
                 <tr class="w-full">
                     <td class=" flex-1 w-full items-center justify-center" colspan="4">
@@ -487,7 +532,6 @@ $(document).ready(function(){
                         </div>
                     </td>
                 </tr>
-
             @endforelse
 
 
@@ -518,7 +562,7 @@ $(document).ready(function(){
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
-						
+
 						<div class="col-6 text-end">
 							<ul class="list-inline">
 								<li class="list-inline-item">

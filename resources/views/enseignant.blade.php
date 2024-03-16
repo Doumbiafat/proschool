@@ -45,8 +45,8 @@
 
     }
     .yo a{
-     margin-right: 80px;
-     margin-left: 80px;
+     margin-right: 50px;
+     margin-left: 50px;
        justify-content: center;
 
     }
@@ -76,7 +76,8 @@
     <div class="yo">
         <a href="{{ route('logout') }}" class="btn">Déconnexion</a>
         <a href="#" class="btn">Modifier</a>
-        <a href="/note">notes</a>
+        <a href="/note" class="btn">notes</a>
+
     </div>
 </div>
 
