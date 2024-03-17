@@ -37,6 +37,7 @@
                   <option value="etudiant">Étudiant</option>
                   <option value="enseignant">Enseignant</option>
                   <option value="admin">Admin</option>
+                  <option value="parent">parent</option>
               </select>
 
 

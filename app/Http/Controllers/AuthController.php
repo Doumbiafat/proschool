@@ -7,6 +7,7 @@ use App\Models\Classe;
 use App\Models\Enseignant;
 use App\Models\Etudiant;
 use App\Models\Note;
+use App\Models\Parents;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -20,7 +21,7 @@ class AuthController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:etudiant,enseignant,admin',
+            'role' => 'required|in:etudiant,enseignant,admin,parent',
             'matiere' => [
                 'required_if:role,enseignant',
                 'string',
@@ -31,6 +32,10 @@ class AuthController extends Controller
                 'nullable', // Rend le champ matricule facultatif
                 'string',
                 'max:255'
+            ],
+            'etudiant_id' => [
+                'required_if:role,parent', // L'étudiant_id est requis si le rôle est parent
+                'exists:etudiants,id' // Assurez-vous que l'étudiant_id existe dans la table des étudiants
             ]
         ]);
 
@@ -44,6 +49,7 @@ class AuthController extends Controller
         ]);
          // Récupération de l'ID de la classe sélectionnée
     $classe_id = $request->input('classe_id');
+    $etudiant_id = $request->input('etudiant_id'); // Récupérer l'ID de l'étudiant depuis la requête
 
 
         if ($request->role === 'enseignant') {
@@ -65,6 +71,12 @@ class AuthController extends Controller
             Admin::create([
                 'id_admin' => $user->id
             ]);
+        }elseif($request->role === 'parent') {
+            // Créer un enregistrement dans la table parents
+            Parents::create([
+                'parent_id' => $user->id,
+                'etudiant_id' => $etudiant_id
+            ]);
         }
         return redirect()->back()->with('success', 'Utilisateur enregistré avec succès.');
     }
@@ -75,7 +87,7 @@ class AuthController extends Controller
     $request->validate([
         "email" => "required|email",
         "password" => "required",
-        "role" => "required|in:etudiant,enseignant,admin" // Validation du champ role
+        "role" => "required|in:etudiant,enseignant,admin,parent" // Validation du champ role
     ]);
 
     // Authentifier l'utilisateur
@@ -108,11 +120,14 @@ class AuthController extends Controller
             return view('etudiant', compact('user','usersss'));
         } elseif (auth()->user()->role === 'enseignant') {
             $token = $user->createToken('auth_token')->plainTextToken;
-              return view('enseignant', compact('user','users','userssse'));
+            return view('enseignant', compact('user','users','userssse'));
 
         } elseif (auth()->user()->role === 'admin') {
             $token = $user->createToken('auth_token')->plainTextToken;
             return view('admin', compact('user','classes'));
+        }elseif (auth()->user()->role === 'parent') {
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return view('parent', compact('user'));
         } else {
             return response()->json([
                 "status" => 0,
@@ -128,7 +143,8 @@ class AuthController extends Controller
 }
     public function Ajouteruser(Request $request){
         $classes = Classe::all();
-        return view('Ajouteruser', compact('classes'));
+        $etudiants = User::where('role', 'etudiant');
+        return view('Ajouteruser', compact('classes','etudiants'));
 
 
 
@@ -180,6 +196,7 @@ class AuthController extends Controller
         //
         $etudiants = User::where ('role','etudiant')->with('etudiant')->get();
 
+
         $enseignants = User::where('role', 'enseignant')->with('enseignant')->get();
 
         return view('list', compact('etudiants','enseignants'));
@@ -213,9 +230,9 @@ class AuthController extends Controller
     }
     public function voirmesnotes()
     {
+
         // Récupérer l'utilisateur connecté
         $user = Auth::user();
-
         // Vérifier si l'utilisateur est un étudiant et s'il a des notes associées
         if ($user->role === 'etudiant' && $user->etudiant) {
             // Récupérer les notes de l'étudiant connecté
@@ -229,37 +246,37 @@ class AuthController extends Controller
         // Rediriger ou afficher un message d'erreur si l'utilisateur n'est pas un étudiant ou s'il n'a pas de notes
         return redirect()->route('login')->withErrors(['error' => 'Vous devez être un étudiant pour accéder à cette fonctionnalité.']);
     }
-    public function Listenotes()
+    public function voirenotess()
     {
-        // Récupérer tous les utilisateurs ayant le rôle "etudiant"
-        $etudiants = User::where('role', 'etudiant')->get();
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
 
-        // Vérifier s'il y a des étudiants
-        if ($etudiants->count() > 0) {
-            // Tableau pour stocker toutes les notes
-            $allNotes = [];
+        // Vérifier si l'utilisateur est un parent et s'il a des étudiants associés
+        if ($user->role === 'parent' && $user->parents) {
+            // Récupérer les étudiants associés au parent à partir de la table parents
+            $etudiants = Parents::where('parent_id', $user->id)->with('etudiant')->get();
 
-            // Parcourir tous les étudiants pour récupérer leurs notes
+            // Initialiser un tableau pour stocker les notes des étudiants
+            $notesEtudiants = [];
+
+            // Boucler à travers chaque étudiant et récupérer leurs notes
             foreach ($etudiants as $etudiant) {
-                if ($etudiant->etudiant) {
-                    // Récupérer les notes de l'étudiant
-                    $notes = $etudiant->etudiant->notes()->first(); // Modifier ici pour récupérer les notes
+                // Récupérer les notes de l'étudiant
+                $notes = Note::where('etudiant_id', $etudiant->etudiant->id)->first();
 
-                    // Ajouter les notes au tableau $allNotes
-                    $allNotes[] = [
-                        'etudiant' => $etudiant,
-                        'notes' => $notes,
-                    ];
-                }
+                // Stocker les notes dans un tableau associatif avec l'ID de l'étudiant comme clé
+                $notesEtudiants[$etudiant->etudiant->id] = $notes;
+
             }
 
-            // Passer toutes les notes à la vue et retourner la vue
-            return view('Listenote', compact('allNotes'));
+            // Passer les notes des étudiants à la vue et retourner la vue
+            return view('voirnoteenfant', compact('notesEtudiants'));
         }
 
-        // Rediriger ou afficher un message d'erreur si aucun étudiant trouvé
-        return redirect()->route('login')->withErrors(['error' => 'Aucun étudiant trouvé.']);
+        // Rediriger ou afficher un message d'erreur si l'utilisateur n'est pas un parent ou s'il n'a pas d'enfants associés
+        return redirect()->route('login')->withErrors(['error' => 'Vous devez être un parent pour accéder à cette fonctionnalité.']);
     }
+
     public function createClasse(Request $request)
     {
         // Valider les données du formulaire

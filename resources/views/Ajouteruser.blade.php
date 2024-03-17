@@ -291,6 +291,12 @@
                 <option value="etudiant">Étudiant</option>
                 <option value="enseignant">Enseignant</option>
                 <option value="admin">Admin</option>
+                <option value="parent">Parent</option>
+            </select>
+            <select name="etudiant_id" id="etudiant_id">
+                @foreach($etudiants as $etudiant)
+                    <option value="{{ $etudiant->etudiant->id }}">{{ $etudiant->etudiant->id }} {{ $etudiant->name }} {{ $etudiant->prenom }}</option>
+                @endforeach
             </select>
 
             <!-- Champ de saisie pour la matière, visible uniquement si le rôle sélectionné est "enseignant" -->

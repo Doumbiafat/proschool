@@ -38,6 +38,8 @@ Route::middleware('auth')->get('/profile', [AuthController::class, 'profile'])->
 Route::middleware('auth')->get('/etudiants', [AuthController::class, 'listEtudiants'])->name('listEtudiants');
 Route::middleware('auth')->get('/note', [AuthController::class, 'noteEtudiants'])->name('noteEtudiants');
 Route::middleware('auth')->get('/voirnote', [AuthController::class, 'voirmesnotes'])->name('voirmesnotes');
+Route::middleware('auth')->get('/voire', [AuthController::class, 'voirenotess'])->name('voirenotess');
+
 
 
 
