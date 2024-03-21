@@ -8,7 +8,7 @@
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 
     <link rel="stylesheet" href="{{asset('css/saa.css')}}">
@@ -20,6 +20,15 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <style>
+    /* Style pour l'icône de la validité du mot de passe */
+    #passwordIcon.valid {
+        color: green; /* Couleur verte pour indiquer un mot de passe valide */
+    }
+
+    #passwordIcon.invalid {
+        color: red; /* Couleur rouge pour indiquer un mot de passe invalide */
+    }
+
 
 .main{
 
@@ -250,6 +259,11 @@
                         {{ session()->get('success') }}
                     </div>
                 @endif
+                @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('error') }}
+                    </div>
+                @endif
 
                     <section class="ins" id="ins">
         <div class="box">
@@ -270,6 +284,7 @@
             </div>
 
 
+
               <div class="inputBox">
                   <input type="email"name="email" id="email" required>
                   <span>email</span>
@@ -277,35 +292,38 @@
 
               </div>
               <div class="inputBox">
-                  <input type="password" name="password" id="password" required>
-                  <span>mot de passe</span>
-                  <i></i>
+                <input style="margin-top:50px;" type="password" name="password" id="password" required oninput="checkPassword()">
 
-              </div>
+                <span style="margin-top:50px">mot de passe</span>
+                <i id="passwordIcon"></i>
+                <span id="passwordStatus"></span> <!-- Ajout de l'élément pour afficher le statut du mot de passe -->
+            </div>
+            <i style="margin-left: 250px;margin-top:10px;color:white;" class="fas fa-eye" id="togglePassword"></i> <!-- Icône pour afficher/masquer le mot de passe -->
               <div class="links">
                   <a href="#">dites-nous tous</a>
                   <!--a href="inscription.php">s'inscrire</a-->
               </div>
 
+              <h3 style="color: white">vous êtes un:</h3>
               <select select name="role" id="role">
                 <option value="etudiant">Étudiant</option>
                 <option value="enseignant">Enseignant</option>
                 <option value="admin">Admin</option>
                 <option value="parent">Parent</option>
             </select>
-            <select name="etudiant_id" id="etudiant_id">
+            <select name="etudiant_id" id="etudiant_id" style="display: none;">
                 @foreach($etudiants as $etudiant)
                     <option value="{{ $etudiant->etudiant->id }}">{{ $etudiant->etudiant->id }} {{ $etudiant->name }} {{ $etudiant->prenom }}</option>
                 @endforeach
             </select>
 
             <!-- Champ de saisie pour la matière, visible uniquement si le rôle sélectionné est "enseignant" -->
-            <select name="matiere" id="matiere">
+            <select name="matiere" id="matiere" style="display: none;">
                 <option value="math">Mathématiques</option>
                 <option value="anglais">Anglais</option>
                 <option value="physique">Physique</option>
             </select>
-            <select name="classe_id" id="classe_id">
+            <select name="classe_id" id="classe_id" style="display: none;">
                 @foreach($classes as $classe)
                     <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
                 @endforeach
@@ -330,8 +348,55 @@
 
 		</div>
 	</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function(e) {
+                // Toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // Toggle the icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+
+    <script>
+function checkPassword() {
+    var passwordInput = document.getElementById('password');
+    var passwordStatus = document.getElementById('passwordStatus');
+    var passwordIcon = document.getElementById('passwordIcon');
+
+    if (passwordInput.value.length >= 8) {
+        passwordStatus.innerText = 'Mot de passe valide';
+        passwordIcon.classList.remove('invalid'); // Retirer la classe 'invalid' au cas où elle est présente
+        passwordIcon.classList.add('valid'); // Ajouter la classe 'valid' pour la couleur verte
+    } else {
+        passwordStatus.innerText = 'Le mot de passe doit comporter au moins 8 caractères';
+        passwordIcon.classList.remove('valid'); // Retirer la classe 'valid' au cas où elle est présente
+        passwordIcon.classList.add('invalid'); // Ajouter la classe 'invalid' pour la couleur rouge
+    }
+}
+    </script>
+
 
 	<script src="{{asset('js/admin/app.js')}}"></script>
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            var role = this.value;
+            var classeIdField = document.getElementById('classe_id');
+
+            if (role === 'etudiant' || role === 'enseignant') {
+                classeIdField.style.display = 'block';
+                document.getElementById('classe_id').required = true;
+            } else {
+                classeIdField.style.display = 'none';
+                document.getElementById('classe_id').required = false;
+            }
+        });
+    </script>
 
 	<script>
          document.getElementById('role').addEventListener('change', function() {
@@ -415,6 +480,34 @@
 			});
 		});
 	</script>
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            var role = this.value;
+            var matiereField = document.getElementById('matiere');
+
+            if (role === 'enseignant') {
+                matiereField.style.display = 'block';
+                document.getElementById('matiere').required = true;
+            } else {
+                matiereField.style.display = 'none';
+                document.getElementById('matiere').required = false;
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            var role = this.value;
+            var etudiantIdField = document.getElementById('etudiant_id');
+
+            if (role === 'parent') {
+                etudiantIdField.style.display = 'block';
+                document.getElementById('etudiant_id').required = true;
+            } else {
+                etudiantIdField.style.display = 'none';
+                document.getElementById('etudiant_id').required = false;
+            }
+        });
+    </script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			// Pie chart

@@ -38,6 +38,9 @@ class AuthController extends Controller
                 'exists:etudiants,id' // Assurez-vous que l'étudiant_id existe dans la table des étudiants
             ]
         ]);
+        if (strlen($request->password) < 8) {
+            return redirect()->back()->with('error', 'Le mot de passe doit comporter au moins 8 caractères.');
+        }
 
 
         $user = User::create([
